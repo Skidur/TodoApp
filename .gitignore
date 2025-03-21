@@ -1,0 +1,16 @@
+# Arquivos de build e dependências
+bin/
+obj/
+*.csproj.user
+.vs/
+wwwroot/lib/
+
+# Arquivos temporários
+*.tmp
+*.log
+
+# Arquivos de ambiente
+appsettings.Development.json
+
+# Arquivos de banco de dados
+*.db

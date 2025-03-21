@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - TodoApp</title>
+    <script>
+        window.homeUrl = "@Url.Action("Welcome", "Home")";
+        window.todoUrl = "@Url.Action("Index", "Todo")";
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/TodoApp.styles.css" asp-append-version="true" />
+</head>
+<body class="@((Context.Request.Cookies["darkMode"] == "true" || (ViewBag.IsDarkMode != null && ViewBag.IsDarkMode == true)) ? "dark-mode" : "light-mode") @RenderSection("BodyClass", required: false)">
+    <!-- Adicionado o container para as partículas -->
+    <div id="particles-js" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></div>
+    
+    <div class="content-wrapper">
+        <header class="header">
+            <h1 id="headerTitle">Lista de Tarefas</h1>
+            <div class="header-buttons">
+                <button id="toggleDarkMode" class="btn btn-secondary" aria-label="Alternar Modo Escuro"></button>
+                <a href="@Url.Action("Welcome", "Home")" class="btn btn-secondary"><i class="fas fa-user-edit"></i> Alterar Nome</a>
+                <button id="addTaskButton" class="btn btn-primary"><i class="fas fa-plus"></i> Adicionar Tarefa</button>
+            </div>
+        </header>
+
+        <main class="main-content">
+            @RenderBody()
+        </main>
+
+        <footer class="footer">
+            <p>© @DateTime.Now.Year - ToDoApp - Desenvolvido por Lucas Durski Ferreira</p>
+        </footer>
+    </div>
+
+    <!-- Modal movido para fora do content-wrapper -->
+    <div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addTaskModalLabel">Adicionar Nova Tarefa</h5>
+                    <button type="button" class="close" onclick="$('#addTaskModal').modal('hide')">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form id="addTaskForm">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="taskName">Nome da Tarefa</label>
+                            <input type="text" class="form-control" id="taskName" name="taskName" placeholder="Digite o nome da tarefa" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer modal-footer-buttons">
+                        <button type="button" class="btn btn-secondary" onclick="$('#addTaskModal').modal('hide')">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" id="saveTaskButton">Adicionar Tarefa</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script>
+        if (typeof $ === 'undefined') {
+            console.error('jQuery não foi carregado corretamente. Verifique os links de script.');
+        } else {
+            console.log('jQuery carregado com sucesso.');
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="@ViewBag.popperjs" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

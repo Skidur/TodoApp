@@ -1,0 +1,124 @@
+@using TodoApp.Models
+@model List<TaskItem>
+
+@{
+    ViewData["Title"] = "Lista de Tarefas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main class="main-content">
+    <h2 id="greeting"></h2>
+    <div class="tables-container">
+        <div class="table-wrapper">
+            <h2>Tarefas Ativas</h2>
+            <table class="table table-responsive-sm" id="activeTasksTable">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Status</th>
+                        <th>Tempo Gasto</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="taskTableBody">
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var task in Model.Where(t => t.Status != TaskItemStatus.Completed))
+                        {
+                            <tr>
+                                <td>@task.Name</td>
+                                <td class="task-status" data-task-id="@task.Id" data-status="@task.Status">
+                                    @task.Status.ToString()
+                                </td>
+                                <td class="task-timer" data-task-id="@task.Id" data-time-spent="@task.TimeSpent.TotalSeconds" data-start-time="@(task.StartTime.HasValue ? task.StartTime.Value.ToString("o") : "")">
+                                    @task.TimeSpent.ToString(@"hh\:mm\:ss")
+                                </td>
+                                <td>
+                                    @if (task.Status == TaskItemStatus.NotStarted)
+                                    {
+                                        <button id="startBtn-@task.Id" class="btn btn-success startTimer" data-task-id="@task.Id" aria-label="Iniciar Tarefa">
+                                            <i class="fas fa-play"></i> Iniciar
+                                        </button>
+                                    }
+                                    else if (task.Status == TaskItemStatus.InProgress)
+                                    {
+                                        <button id="pauseBtn-@task.Id" class="btn btn-warning stopTimer" data-task-id="@task.Id" aria-label="Pausar Tarefa">
+                                            <i class="fas fa-pause"></i> Pausar
+                                        </button>
+                                        <button id="completeBtn-@task.Id" class="btn btn-info completeTask" data-task-id="@task.Id" aria-label="Finalizar Tarefa">
+                                            <i class="fas fa-check"></i> Finalizar
+                                        </button>
+                                    }
+                                    else if (task.Status == TaskItemStatus.Paused)
+                                    {
+                                        <button id="resumeBtn-@task.Id" class="btn btn-success resumeTimer" data-task-id="@task.Id" aria-label="Retomar Tarefa">
+                                            <i class="fas fa-play"></i> Retomar
+                                        </button>
+                                        <button id="completeBtn-@task.Id" class="btn btn-info completeTask" data-task-id="@task.Id" aria-label="Finalizar Tarefa">
+                                            <i class="fas fa-check"></i> Finalizar
+                                        </button>
+                                    }
+                                    <button class="btn btn-danger deleteTask" data-task-id="@task.Id" aria-label="Excluir Tarefa">
+                                        <i class="fas fa-trash"></i> Excluir
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-wrapper">
+            <h2>Tarefas Concluídas</h2>
+            <table class="table table-responsive-sm" id="completedTasksTable">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Tempo Gasto</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="completedTaskTableBody">
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var task in Model.Where(t => t.Status == TaskItemStatus.Completed))
+                        {
+                            <tr>
+                                <td>@task.Name</td>
+                                <td class="task-timer" data-task-id="@task.Id" data-time-spent="@task.TimeSpent.TotalSeconds" data-start-time="@(task.StartTime.HasValue ? task.StartTime.Value.ToString("o") : "")">
+                                    @task.TimeSpent.ToString(@"hh\:mm\:ss")
+                                </td>
+                                <td>
+                                    <button class="btn btn-danger deleteTask" data-task-id="@task.Id" aria-label="Excluir Tarefa">
+                                        <i class="fas fa-trash"></i> Excluir
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            if (typeof $ === 'undefined') {
+                console.error('jQuery não foi carregado corretamente. Verifique os links de script.');
+                return;
+            }
+            console.log('Index.cshtml: Scripts carregados.');
+
+            // Exibe a saudação (a verificação de redirecionamento é feita pelo site.js)
+            var username = localStorage.getItem("username");
+            if (username && /^[A-Za-zÀ-ÿ\s]{2,50}$/.test(username)) {
+                var hour = new Date().getHours();
+                var greeting = hour < 12 ? 'Bom dia' : hour < 18 ? 'Boa tarde' : 'Boa noite';
+                $("#greeting").text(greeting + ', ' + username + '!');
+            }
+        });
+    </script>
+}

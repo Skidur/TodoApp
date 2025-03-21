@@ -1,0 +1,51 @@
+@{
+    ViewData["Title"] = "Bem-vindo ao TodoApp";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section BodyClass {
+    welcome-page
+}
+
+<div class="welcome-container">
+    <h1>Bem-vindo ao TodoApp</h1>
+    <p>Por favor, insira seu nome para começar:</p>
+    <form id="usernameForm" onsubmit="event.preventDefault(); submitName();">
+        <div class="form-group">
+            <label for="userName">Seu Nome:</label>
+            <input type="text" id="userName" class="form-control" placeholder="Digite seu nome" />
+        </div>
+        <button type="submit" class="btn btn-primary">Confirmar</button>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            if (typeof $ === 'undefined') {
+                console.error('jQuery não foi carregado corretamente. Verifique os links de script.');
+                return;
+            }
+            console.log('Welcome.cshtml: Scripts carregados.');
+
+            // Log para depuração
+            if ($('body').hasClass('welcome-page')) {
+                console.log('Classe welcome-page detectada no body. O fundo do .content-wrapper deve ser transparente.');
+                console.log('Estilo do .content-wrapper:', $('.content-wrapper').css('background'));
+            } else {
+                console.error('Classe welcome-page NÃO detectada no body. Verifique o _Layout.cshtml e a seção BodyClass.');
+            }
+
+            // Verifica se há um nome no localStorage
+            var storedUsername = localStorage.getItem("username");
+            if (storedUsername && /^[A-Za-zÀ-ÿ\s]{2,50}$/.test(storedUsername)) {
+                console.log("Nome de usuário válido encontrado no localStorage:", storedUsername);
+                // Preenche o campo com o nome existente, mas não redireciona automaticamente
+                $("#userName").val(storedUsername);
+            } else {
+                console.log("Nenhum nome de usuário válido encontrado, aguardando entrada do usuário.");
+                localStorage.removeItem("username"); // Limpa nome inválido
+            }
+        });
+    </script>
+}

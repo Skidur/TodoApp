@@ -1,0 +1,775 @@
+/* Importa a fonte Poppins do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/* Variáveis CSS para centralizar propriedades repetidas */
+:root {
+  --shadow-light: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra padrão no modo claro */
+  --shadow-dark: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra padrão no modo escuro */
+  --border-light: #dee2e6; /* Borda clara no modo claro */
+  --border-dark: #4a5568; /* Borda escura no modo escuro */
+  --transition-base: 1s ease; /* Transição padrão para background, color, etc. */
+  --transition-fast: 0.3s ease; /* Transição rápida para hover e foco */
+}
+
+/* Configurações gerais */
+html {
+  font-size: 14px; /* Tamanho base da fonte para telas pequenas */
+  position: relative; /* Posicionamento relativo para elementos filhos */
+  min-height: 100%; /* Altura mínima de 100% */
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px; /* Aumenta a fonte em telas maiores */
+  }
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb; /* Estilo de foco consistente */
+}
+
+/* Estilo do Body com fundo base para partículas */
+body {
+  margin: 0; /* Remove margens padrão */
+  background: #0d47a1; /* Azul escuro suave como base para o modo claro */
+  background-attachment: fixed; /* Fixa o fundo */
+  color: #212529; /* Texto escuro no modo claro */
+  font-family: 'Poppins', sans-serif; /* Fonte Poppins */
+  display: flex; /* Layout flexível */
+  flex-direction: column; /* Direção vertical */
+  min-height: 100vh; /* Altura mínima da viewport */
+  transition: background var(--transition-base), color var(--transition-base); /* Transição suave */
+  visibility: hidden; /* Oculta até o JS carregar */
+  overflow: hidden;
+}
+
+body.js-loaded {
+  visibility: visible; /* Mostra após o JS adicionar a classe */
+}
+
+body.dark-mode {
+  background: #0d1b2a; /* Azul escuro profundo para o modo escuro */
+  color: #f8f9fa; /* Texto claro no modo escuro */
+}
+
+/* Container das partículas */
+#particles-js {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Fica atrás do conteúdo */
+}
+
+/* Estilo do Cabeçalho */
+.header {
+  position: fixed; /* Fixo no topo */
+  top: 0; left: 0; right: 0; /* Ocupa toda a largura */
+  background: linear-gradient(90deg, #ffffff, #f8f9fa); /* Gradiente claro */
+  color: #212529; /* Texto escuro */
+  padding: 15px 20px; /* Espaçamento interno */
+  display: flex; /* Layout flexível */
+  justify-content: space-between; /* Espaço entre título e botões */
+  align-items: center; /* Alinhamento vertical */
+  box-shadow: var(--shadow-light); /* Sombra padrão */
+  z-index: 1000; /* Acima do conteúdo principal */
+  animation: slideDown 1s ease forwards; /* Animação de entrada */
+  transition: background var(--transition-base), color var(--transition-base), box-shadow var(--transition-base); /* Transição suave */
+}
+
+body.dark-mode .header {
+  background: linear-gradient(90deg, #2d2d2d, #333333); /* Gradiente escuro */
+  color: #f8f9fa; /* Texto claro */
+  box-shadow: var(--shadow-dark); /* Sombra ajustada */
+}
+
+.header h1 {
+  margin: 0; /* Remove margem padrão */
+  font-size: 2rem; /* Tamanho da fonte */
+  font-weight: 600; /* Peso da fonte */
+  transition: color var(--transition-base); /* Transição sincronizada */
+}
+
+.header-buttons {
+  display: flex; /* Alinha botões horizontalmente */
+  gap: 10px; /* Espaço entre botões */
+}
+
+/* Estilo do Conteúdo Principal */
+.main-content {
+  flex: 1; /* Ocupa espaço disponível */
+  padding: 80px 20px 60px 20px; /* Espaçamento ajustado */
+}
+
+/* Estilo do Rodapé */
+.footer {
+  position: fixed; /* Fixo na base */
+  bottom: 0; left: 0; right: 0; /* Ocupa toda a largura */
+  background: none; /* Sem fundo */
+  color: #ffffff; /* Texto claro */
+  padding: 10px 20px; /* Espaçamento interno */
+  text-align: center; /* Centraliza texto */
+  box-shadow: none; 
+  animation: fadeIn 1s ease forwards; /* Animação de entrada */
+  transition: color var(--transition-base); /* Transição suave */
+}
+
+body.dark-mode .footer {
+  color: #ffffff; /* Texto claro */
+}
+
+/* Animações */
+@keyframes slideDown {
+  from { transform: translateY(-100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.footer p {
+  margin: 0; /* Remove margem padrão */
+  font-size: 0.9rem; /* Tamanho da fonte */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* Sombra para melhorar legibilidade */
+}
+
+/* Estilo das Tabelas */
+.table {
+  table-layout: fixed; /* Largura fixa para colunas */
+  width: 100%; /* Ocupa toda a largura */
+  border-radius: 8px; /* Bordas arredondadas */
+  border-collapse: collapse; /* Remove espaços entre as células */
+  color: #212529; /* Texto escuro */
+  box-shadow: var(--shadow-light); /* Sombra padrão */
+  transition: background var(--transition-base), color var(--transition-base), box-shadow var(--transition-base); /* Transição suave */
+}
+
+/* Ajustar os cabeçalhos das tabelas */
+.table thead th {
+  border: 1px solid #ffffff; /* Adiciona bordas completas aos cabeçalhos */
+  padding: 10px;
+  color: #ffffff; /* Texto branco para contraste */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* Sombra para melhorar legibilidade */
+  background: rgba(255, 255, 255, 0.1); /* Fundo leve para destacar o cabeçalho */
+}
+
+/* Ajustar as células das tabelas */
+.table tbody td {
+  border: 1px solid #ffffff; /* Adiciona bordas completas às células */
+  padding: 10px;
+  color: #ffffff; /* Texto branco para contraste */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* Sombra para melhorar legibilidade */
+}
+
+/* Tabela vazia (transparente) */
+.table.table-empty {
+  background: transparent; /* Fundo completamente transparente */
+  box-shadow: none; /* Remove sombra para não interferir no fundo */
+}
+
+/* Tabela com tarefas (semi-transparente) */
+.table.table-filled {
+  background: rgba(255, 255, 255, 0.1); /* Fundo semi-transparente */
+  box-shadow: var(--shadow-light); /* Sombra padrão */
+}
+
+body.dark-mode .table {
+  color: #f8f9fa; /* Texto claro */
+}
+
+body.dark-mode .table.table-empty {
+  background: transparent; /* Fundo completamente transparente */
+  box-shadow: none; /* Remove sombra */
+}
+
+body.dark-mode .table.table-filled {
+  background: rgba(45, 45, 45, 0.3); /* Fundo semi-transparente escuro */
+  box-shadow: var(--shadow-dark); /* Sombra ajustada */
+}
+
+body.dark-mode .table thead th {
+  border-color: #cccccc; /* Bordas mais claras no modo escuro */
+  background: rgba(255, 255, 255, 0.05); /* Fundo mais sutil no modo escuro */
+}
+
+body.dark-mode .table tbody td {
+  border-color: #cccccc; /* Bordas mais claras no modo escuro */
+}
+
+/* Adiciona sombra ao texto para melhorar legibilidade */
+.table th,
+.table td {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); /* Sombra leve no texto */
+}
+
+body.dark-mode .table th,
+body.dark-mode .table td {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); /* Sombra mais escura no modo escuro */
+}
+
+.table th,
+.table td,
+.table tr {
+  border-color: var(--border-light); /* Borda clara */
+  padding: 0.75rem; /* Espaçamento interno */
+  vertical-align: middle; /* Alinhamento vertical */
+  overflow-wrap: break-word; /* Quebra palavras longas */
+  max-width: 0; /* Controle de largura */
+  word-wrap: break-word; /* Compatibilidade */
+}
+
+body.dark-mode .table th,
+body.dark-mode .table td,
+body.dark-mode .table tr {
+  border-color: var(--border-dark); /* Borda escura */
+}
+
+.table th {
+  color: #212529; /* Texto escuro */
+}
+
+body.dark-mode .table th {
+  color: #f8f9fa; /* Texto claro */
+}
+
+/* Ajuste de larguras das colunas */
+.table th:nth-child(1),
+.table td:nth-child(1) { min-width: 150px; max-width: 150px; } /* Nome */
+.table th:nth-child(2),
+.table td:nth-child(2) { min-width: 150px; max-width: 150px; white-space: nowrap; overflow: visible; text-overflow: initial; } /* Status */
+.table th:nth-child(3),
+.table td:nth-child(3) { min-width: 100px; max-width: 100px; } /* Tempo */
+.table th:nth-child(4),
+.table td:nth-child(4) { min-width: 300px; max-width: 300px; white-space: normal; overflow: visible; } /* Ações */
+
+.table td:not(:nth-child(4)) {
+  white-space: nowrap; /* Impede quebra */
+  overflow: visible; /* Mostra conteúdo */
+}
+
+/* Estilo dos Botões */
+.btn {
+  margin-right: 5px; /* Espaço entre botões */
+  border-radius: 6px; /* Bordas arredondadas */
+  box-shadow: var(--shadow-light); /* Sombra padrão */
+  transition: background var(--transition-base), opacity var(--transition-fast), border-color var(--transition-base), color var(--transition-base), transform 0.2s ease; /* Transições */
+}
+
+.btn:hover {
+  opacity: 0.8; /* Reduz opacidade */
+  transform: scale(1.05); /* Aumenta tamanho */
+}
+
+body.light-mode .btn { background-color: #6c757d; border-color: #6c757d; color: #ffffff; }
+body.dark-mode .btn { background-color: #4a5568; border-color: #6b7280; color: #ffffff; }
+
+/* Botões específicos no modo claro */
+body.light-mode .btn-secondary { background: linear-gradient(45deg, #ffcc00, #e6b800); border: none; color: #ffffff; }
+body.light-mode .btn-secondary:hover { background: linear-gradient(45deg, #ffdd57, #ffcc00); }
+body.light-mode .btn-success { background: linear-gradient(45deg, #28a745, #218838); border: none; }
+body.light-mode .btn-success:hover { background: linear-gradient(45deg, #34ce57, #28a745); }
+body.light-mode .btn-danger { background: linear-gradient(45deg, #dc3545, #c82333); border: none; }
+body.light-mode .btn-danger:hover { background: linear-gradient(45deg, #e4606d, #dc3545); }
+body.light-mode .btn-warning { background: linear-gradient(45deg, #9c6eff, #7c4dff); border: none; color: #ffffff; }
+body.light-mode .btn-warning:hover { background: linear-gradient(45deg, #b589ff, #9c6eff); }
+body.light-mode .btn-info { background: linear-gradient(45deg, #17a2b8, #138496); border: none; }
+body.light-mode .btn-info:hover { background: linear-gradient(45deg, #2dc8e0, #17a2b8); }
+body.light-mode .btn-primary { background: linear-gradient(45deg, #007bff, #0056b3); border: none; color: #ffffff; }
+body.light-mode .btn-primary:hover { background: linear-gradient(45deg, #339af0, #007bff); }
+
+/* Botões específicos no modo escuro */
+body.dark-mode .btn-secondary { background: linear-gradient(45deg, #1e1e1e, #2d2d2d); border: none; color: #ffffff; }
+body.dark-mode .btn-secondary:hover { background: linear-gradient(45deg, #333333, #1e1e1e); }
+body.dark-mode .btn-success { background: linear-gradient(45deg, #155724, #10451a); border: none; }
+body.dark-mode .btn-success:hover { background: linear-gradient(45deg, #1a5f2a, #155724); }
+body.dark-mode .btn-danger { background: linear-gradient(45deg, #721c24, #5c151e); border: none; }
+body.dark-mode .btn-danger:hover { background: linear-gradient(45deg, #851e28, #721c24); }
+body.dark-mode .btn-warning { background: linear-gradient(45deg, #6f42c1, #5a2f9d); border: none; color: #ffffff; }
+body.dark-mode .btn-warning:hover { background: linear-gradient(45deg, #7d54d2, #6f42c1); }
+body.dark-mode .btn-info { background: linear-gradient(45deg, #0c5460, #093c44); border: none; }
+body.dark-mode .btn-info:hover { background: linear-gradient(45deg, #0e6c82, #0c5460); }
+body.dark-mode .btn-primary { background: linear-gradient(45deg, #0056b3, #003d7a); border: none; color: #ffffff; }
+body.dark-mode .btn-primary:hover { background: linear-gradient(45deg, #0069d9, #0056b3); }
+
+/* Inputs no modo escuro */
+body.dark-mode .form-control,
+body.dark-mode .form-control:focus {
+  background-color: #3b3b3b; /* Fundo escuro */
+  border-color: #555; /* Borda escura */
+  color: #f8f9fa; /* Texto claro */
+  transition: background-color var(--transition-base), color var(--transition-base), border-color var(--transition-base); /* Transição suave */
+}
+
+body.dark-mode .form-control::placeholder {
+  color: #aaa; /* Placeholder no modo escuro */
+}
+
+/* Estilo do Modal */
+.modal {
+  z-index: 1100 !important;
+  filter: none !important; /* Garante que o modal não seja afetado pelo blur */
+  background: none !important; /* Remove qualquer fundo do modal */
+}
+
+.modal.show {
+  display: block; /* Mostra quando ativado */
+}
+
+@keyframes fadeInBackdrop {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Efeito de blur e escurecimento aplicado apenas ao fundo */
+.modal-blur .header,
+.modal-blur .main-content,
+.modal-blur .footer {
+  filter: blur(3px); /* Blur nos elementos de fundo */
+  transition: filter 0.3s ease; /* Suaviza a transição */
+}
+
+.modal-blur {
+  background: rgba(0, 0, 0, 0.5); /* Escurecimento leve no content-wrapper */
+  transition: background 0.3s ease; /* Suaviza a transição */
+}
+
+.modal-backdrop.fade {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modal-backdrop.show {
+  opacity: 1;
+}
+
+.modal-dialog {
+  max-width: 400px; /* Ajuste para responsividade */
+  margin: 1.75rem auto; /* Centraliza */
+  z-index: 1110 !important;
+}
+
+.modal.show .modal-dialog {
+  pointer-events: auto;
+}
+
+.modal-content {
+  background-color: #ffffff; /* Fundo sólido branco */
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Sombra para profundidade */
+  color: #000000; /* Texto preto para legibilidade */
+  z-index: 1120 !important;
+  position: relative;
+}
+
+body.dark-mode .modal-content {
+  background-color: #2d2d2d; /* Fundo escuro no modo escuro */
+  color: #ffffff; /* Texto branco */
+}
+
+@keyframes popIn {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal-header {
+  border-bottom: none; /* Sem borda inferior */
+  padding: 20px; /* Espaçamento interno */
+  display: flex; /* Layout flexível */
+  justify-content: space-between; /* Espaço entre título e fechar */
+  align-items: center; /* Alinhamento vertical */
+}
+
+.modal-title {
+  font-size: 1.5rem; /* Tamanho da fonte */
+  font-weight: 600; /* Peso da fonte */
+  margin: 0; /* Remove margem */
+}
+
+.close {
+  background: none; /* Sem fundo */
+  border: none; /* Sem borda */
+  font-size: 1.5rem; /* Tamanho da fonte */
+  color: #6c757d; /* Cor padrão */
+  cursor: pointer; /* Mãozinha */
+  transition: color var(--transition-fast), transform var(--transition-fast); /* Transições */
+}
+
+.close:hover {
+  color: #dc3545; /* Vermelho ao hover */
+  transform: scale(1.2); /* Aumenta tamanho */
+}
+
+body.dark-mode .close {
+  color: #adb5bd; /* Cor clara */
+}
+
+body.dark-mode .close:hover {
+  color: #f8f9fa; /* Mais clara ao hover */
+}
+
+.modal-body {
+  padding: 20px; /* Espaçamento interno */
+}
+
+.form-group {
+  margin-bottom: 20px; /* Espaço abaixo */
+}
+
+.form-group label {
+  font-weight: 600; /* Peso da fonte */
+  margin-bottom: 8px; /* Espaço abaixo */
+  display: block; /* Ocupa linha inteira */
+}
+
+.form-control {
+  border-radius: 8px; /* Bordas arredondadas */
+  padding: 10px; /* Espaçamento interno */
+  font-size: 1rem; /* Tamanho da fonte */
+  border: 1px solid var(--border-light); /* Borda clara */
+  transition: border-color var(--transition-fast), background-color var(--transition-base), color var(--transition-base); /* Transições */
+}
+
+.form-control:focus {
+  border-color: #007bff; /* Borda azul ao foco */
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Sombra de foco */
+}
+
+body.dark-mode .form-control {
+  border-color: var(--border-dark); /* Borda escura */
+}
+
+body.dark-mode .form-control:focus {
+  border-color: #66b0ff; /* Borda azul clara */
+  box-shadow: 0 0 0 0.2rem rgba(102, 176, 255, 0.25); /* Sombra de foco */
+}
+
+.form-control::placeholder {
+  color: #aaa; /* Placeholder */
+}
+
+.modal .btn-primary {
+  padding: 10px 20px; /* Espaçamento interno */
+  font-size: 1rem; /* Tamanho da fonte */
+  font-weight: 600; /* Peso da fonte */
+  transition: background var(--transition-fast), transform var(--transition-fast); /* Transições */
+}
+
+.modal .btn-primary:hover {
+  transform: scale(1.05); /* Aumenta tamanho */
+}
+
+.modal .btn-secondary {
+  padding: 10px 20px; /* Espaçamento interno */
+  font-size: 1rem; /* Tamanho da fonte */
+  font-weight: 600; /* Peso da fonte */
+  color: #ffffff; /* Texto branco */
+  transition: background var(--transition-fast), transform var(--transition-fast); /* Transições */
+}
+
+.modal .btn-secondary:hover {
+  transform: scale(1.05); /* Aumenta tamanho */
+}
+
+.modal-footer-buttons {
+  display: flex; /* Layout flexível */
+  justify-content: flex-end; /* Alinha à direita */
+  gap: 10px; /* Espaço entre botões */
+}
+
+/* Estilização da Lista de Tarefas */
+.table td:nth-child(4) .btn {
+  width: 100px; /* Largura fixa */
+  white-space: nowrap; /* Impede quebra */
+  padding: 0.375rem 0.75rem; /* Espaçamento interno */
+  font-size: 0.875rem; /* Tamanho da fonte */
+  text-align: center; /* Centraliza texto */
+}
+
+body.dark-mode .table td:nth-child(4) .btn,
+body.light-mode .table td:nth-child(4) .btn {
+  min-width: 100px; /* Largura mínima */
+}
+
+/* Tabelas lado a lado */
+.tables-container {
+  display: flex;
+  justify-content: space-between; /* Espaça as tabelas entre os cantos */
+  width: 100%; /* Ocupa toda a largura disponível */
+  padding: 0 20px; /* Adiciona um pequeno padding nas laterais */
+  box-sizing: border-box;
+}
+
+.table-wrapper {
+  flex: 1; /* Faz com que ambas as tabelas tenham o mesmo tamanho */
+  max-width: 48%; /* Limita a largura para que haja um espaço no centro */
+  margin: 0; /* Remove margens extras */
+}
+
+.tables-container table {
+  flex: 1; /* Ocupa espaço igual */
+  min-width: 0; /* Permite encolher */
+}
+
+.tables-container h2 {
+  color: #ffffff !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+#greeting {
+  color: #ffffff !important; /* Texto branco */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* Sombra para melhorar legibilidade */
+  padding-left: 20px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .tables-container { flex-direction: column; } /* Empilha tabelas */
+  .header { flex-direction: column; align-items: flex-start; } /* Empilha header */
+  .header-buttons { margin-top: 10px; } /* Espaço acima dos botões */
+}
+
+/* Botão de modo escuro/claro */
+#toggleDarkMode {
+  border: none; /* Sem borda */
+  border-radius: 6px; /* Bordas arredondadas */
+  box-shadow: var(--shadow-light); /* Sombra padrão */
+  color: #ffffff; /* Texto branco */
+  transition: background var(--transition-base), opacity var(--transition-fast), transform 0.2s ease; /* Transições */
+}
+
+body.dark-mode #toggleDarkMode {
+  background: linear-gradient(45deg, #ffcc00, #e6b800); /* Gradiente amarelo */
+}
+
+body.light-mode #toggleDarkMode {
+  background: linear-gradient(45deg, #1e1e1e, #2d2d2d); /* Gradiente preto */
+}
+
+#toggleDarkMode:hover {
+  opacity: 0.8; /* Reduz opacidade */
+  transform: scale(1.05); /* Aumenta tamanho */
+}
+
+/* Títulos */
+h1, h2 {
+  transition: color var(--transition-base); /* Transição sincronizada */
+}
+
+body.light-mode h1, body.light-mode h2 { color: #212529; }
+body.dark-mode h1, body.dark-mode h2 { color: #f8f9fa; }
+
+/* Página Inicial */
+.welcome-container {
+  position: absolute;
+  top: 62px;
+  bottom: 34px;
+  left: 0;
+  right: 0;
+  display: flex; /* Layout flexível */
+  flex-direction: column; /* Direção vertical */
+  align-items: center; /* Centraliza horizontalmente */
+  justify-content: center; /* Centraliza verticalmente */
+  text-align: center; /* Centraliza texto */
+  max-width: 500px; /* Limita a largura */
+  margin: 0 auto; /* Centraliza */
+  background: none; /* Remove o fundo semi-transparente */
+  border-radius: 0; /* Remove bordas arredondadas */
+  box-shadow: none; /* Remove sombra */
+}
+
+/* Ajusta o texto para maior contraste no modo claro */
+body.light-mode .welcome-container h1,
+body.light-mode .welcome-container p,
+body.light-mode .welcome-container label {
+  color: #ffffff; /* Texto branco para contraste contra o fundo azul escuro */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* Sombra para melhorar legibilidade */
+}
+
+/* Ajusta o texto para maior contraste no modo escuro */
+body.dark-mode .welcome-container h1,
+body.dark-mode .welcome-container p,
+body.dark-mode .welcome-container label {
+  color: #ffffff; /* Texto branco */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7); /* Sombra mais escura no modo escuro */
+}
+
+/* Ajusta o campo de entrada para ter um fundo visível */
+.welcome-container .form-control {
+  background: rgba(255, 255, 255, 0.9); /* Fundo claro para o input no modo claro */
+  color: #000000; /* Texto preto para legibilidade */
+}
+
+body.dark-mode .welcome-container .form-control {
+  background: rgba(45, 45, 45, 0.9); /* Fundo escuro para o input no modo escuro */
+  color: #ffffff; /* Texto branco */
+}
+
+/* Ajusta o botão Confirmar no modo claro para destoar do fundo */
+body.light-mode .welcome-container .btn-primary {
+  background: linear-gradient(45deg, #ff6f61, #ff3d00); /* Gradiente laranja/vermelho */
+  border: none;
+  color: #ffffff;
+}
+
+body.light-mode .welcome-container .btn-primary:hover {
+  background: linear-gradient(45deg, #ff8a75, #ff5722); /* Gradiente mais claro ao hover */
+}
+
+/* Ajusta o botão Confirmar no modo escuro (mantém o azul, mas com contraste) */
+body.dark-mode .welcome-container .btn-primary {
+  background: linear-gradient(45deg, #007bff, #0056b3); /* Mantém o gradiente azul */
+  border: none;
+  color: #ffffff;
+}
+
+body.dark-mode .welcome-container .btn-primary:hover {
+  background: linear-gradient(45deg, #339af0, #007bff);
+}
+
+.welcome-container h1 { font-size: 2.5rem; margin-bottom: 20px; }
+.welcome-container p { font-size: 1.2rem; margin-bottom: 30px; }
+.welcome-container .form-group { width: 100%; max-width: 400px; margin-bottom: 20px; }
+.welcome-container .form-control { font-size: 1rem; padding: 10px; border-radius: 8px; }
+.welcome-container .btn-primary { font-size: 1rem; padding: 10px 20px; border-radius: 8px; }
+
+/* Conteúdo acima do fundo */
+.content-wrapper {
+  position: relative; /* Posicionamento relativo */
+  z-index: 1; /* Acima das partículas */
+  min-height: 100vh; /* Altura mínima */
+  display: flex; /* Layout flexível */
+  flex-direction: column; /* Direção vertical */
+  background: none;
+  padding: 20px; /* Espaçamento interno */
+  border-radius: 10px; /* Bordas arredondadas */
+  margin: 20px auto; /* Centraliza com margens */
+  max-width: 1200px; /* Limita a largura para mostrar mais do fundo */
+}
+
+body.dark-mode .content-wrapper {
+  background: none;
+}
+
+/* Garantir que a página de boas-vindas não tenha scroll */
+body.welcome-page {
+  height: 100vh; /* Altura total da janela */
+  overflow: hidden; /* Remove o scroll */
+}
+
+/* Forçar transparência na página de boas-vindas */
+body.welcome-page .content-wrapper {
+  background: none !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  max-width: none !important;
+  min-height: 100vh; /* Garante que ocupe a altura total */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Distribui o conteúdo entre o topo e o rodapé */
+  overflow: hidden;
+}
+
+/* Ajustar o main-content para centralizar o welcome-container */
+body.welcome-page .main-content {
+  flex: 1; /* Ocupa o espaço disponível */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Garante que o header e footer mantenham seus fundos na página de boas-vindas */
+body.welcome-page .header {
+  background: linear-gradient(90deg, #ffffff, #f8f9fa); /* Mantém o gradiente claro */
+  box-shadow: var(--shadow-light);
+}
+
+body.welcome-page.dark-mode .header {
+  background: linear-gradient(90deg, #2d2d2d, #333333); /* Mantém o gradiente escuro */
+  box-shadow: var(--shadow-dark);
+}
+
+body.welcome-page .footer {
+  background: none;
+  box-shadow: none;
+  width: 100%; /* Ocupa toda a largura */
+  margin: 0;
+  padding: 10px 0;
+  border-radius: 0; /* Remove bordas arredondadas */
+  position: relative; /* Garante que fique no fluxo do layout */
+}
+
+body.welcome-page.dark-mode .footer {
+  background: linear-gradient(90deg, #2d2d2d, #333333); /* Mantém o gradiente escuro */
+  box-shadow: none;
+}
+
+/* Ajustar o texto do rodapé para maior visibilidade */
+body.welcome-page .footer p {
+  color: #000000; /* Preto no modo claro para contraste com o fundo branco */
+  text-shadow: none;
+}
+
+body.welcome-page.dark-mode .footer p {
+  color: #ffffff; /* Branco no modo escuro para contraste com o fundo escuro */
+}
+
+/* Ajustar o content-wrapper na página de tarefas */
+body:not(.welcome-page) .content-wrapper {
+  background: none; 
+  border-radius: 0;
+  margin: 0;
+  padding: 20px;
+  max-width: none;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Distribui o conteúdo entre o topo e o rodapé */
+}
+
+body.dark-mode:not(.welcome-page) .content-wrapper {
+  background: none;
+}
+
+/* Ajustar o main-content na página de tarefas */
+body:not(.welcome-page) .main-content {
+  flex: 1; /* Ocupa o espaço disponível */
+}
+
+/* Ajustar o rodapé na página de tarefas */
+body:not(.welcome-page) .footer {
+  background:none;
+  width: 100%; /* Ocupa toda a largura */
+  margin: 0;
+  padding: 10px 0;
+  border-radius: 0; /* Remove bordas arredondadas */
+  position: relative; /* Garante que fique no fluxo do layout */
+}
+
+body.dark-mode:not(.welcome-page) .footer {
+  background: none;
+}
+
+/* Ajustar o texto do rodapé para maior visibilidade */
+body:not(.welcome-page) .footer p {
+  color: #ffffff; /* Preto no modo claro para contraste com o fundo branco */
+  text-shadow: none;
+}
+
+body.dark-mode:not(.welcome-page) .footer p {
+  color: #ffffff; /* Branco no modo escuro para contraste com o fundo escuro */
+}
+
+.swal2-higher-zindex {
+  z-index: 1200 !important;
+}
